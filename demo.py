@@ -38,7 +38,7 @@ def index():
         for name in w1:
             w=w.replace(name,"")
             w=w.replace(w.split(" ")[-1],"")
-        res=requests.post("http://localhost:5000/predict",json={"query":w})
+        res=requests.post("http://172.17.0.1:5000/predict",json={"query":w})
         
         m.append(json.loads(res.text)["score"])
         mm.append(json.loads(res.text)["query_result"])
@@ -47,8 +47,7 @@ def index():
     df.insert(3,"query_result",mm)
     df.insert(4,"message1",m1)
     df.to_excel("vishal.xlsx")
-    return send_from_directory(directory="../..",path="vishal.xlsx",as_attachment=bool(1))
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 1001))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    return send_from_directory(directory="",path="vishal.xlsx",as_attachment=bool(1))
+port = int(os.environ.get('PORT', 1001))
+app.run(debug=True, host='0.0.0.0', port=port)
 
